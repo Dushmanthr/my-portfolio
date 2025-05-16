@@ -8,7 +8,16 @@ import { Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  githubUrl: string;
+  liveUrl: string;
+}
+
+const projects: Project[] = [
   {
     title: "Travelling Site",
     description: "A comprehensive travel website that allows users to explore destinations, book trips, and share their experiences. Features include user authentication, interactive maps, and a review system.",
@@ -43,8 +52,13 @@ const projects = [
   }
 ];
 
-const ProjectCard = ({ project, index }) => {
-  const ref = useRef(null);
+interface ProjectCardProps {
+  project: Project;
+  index: number;
+}
+
+const ProjectCard = ({ project, index }: ProjectCardProps) => {
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
@@ -61,6 +75,7 @@ const ProjectCard = ({ project, index }) => {
           alt={project.title}
           fill
           className="object-cover"
+          priority={index < 2} // Only prioritize loading for first 2 images
         />
       </div>
       <div className="p-6">
@@ -93,7 +108,7 @@ const ProjectCard = ({ project, index }) => {
 };
 
 const ProjectsSection = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
