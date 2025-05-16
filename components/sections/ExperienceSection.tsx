@@ -7,7 +7,17 @@ import {
   Briefcase, GraduationCap, Award, Calendar
 } from 'lucide-react';
 
-const experiences = [
+interface ExperienceItem {
+  type: string;
+  title: string;
+  organization: string;
+  period: string;
+  description: string;
+  icon: React.ReactNode;
+  link?: string;
+}
+
+const experiences: ExperienceItem[] = [
   {
     type: "work",
     title: "Software Engineer",
@@ -88,8 +98,14 @@ const experiences = [
   }
 ];
 
-const TimelineItem = ({ item, index, isLeft }) => {
-  const ref = useRef(null);
+interface TimelineItemProps {
+  item: ExperienceItem;
+  index: number;
+  isLeft: boolean;
+}
+
+const TimelineItem = ({ item, index, isLeft }: TimelineItemProps) => {
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
