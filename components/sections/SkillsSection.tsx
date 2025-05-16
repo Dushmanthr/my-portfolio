@@ -8,7 +8,13 @@ import {
   GitBranch, Terminal, Layers, Smartphone
 } from 'lucide-react';
 
-const skills = [
+interface Skill {
+  category: string;
+  icon: React.ReactNode;
+  technologies: string[];
+}
+
+const skills: Skill[] = [
   {
     category: "Frontend",
     icon: <Layout className="h-8 w-8 mb-4 text-primary" />,
@@ -41,8 +47,15 @@ const skills = [
   }
 ];
 
-const SkillCard = ({ category, icon, technologies, index }) => {
-  const ref = useRef(null);
+interface SkillCardProps {
+  category: string;
+  icon: React.ReactNode;
+  technologies: string[];
+  index: number;
+}
+
+const SkillCard = ({ category, icon, technologies, index }: SkillCardProps) => {
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
@@ -72,7 +85,7 @@ const SkillCard = ({ category, icon, technologies, index }) => {
 };
 
 const SkillsSection = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
